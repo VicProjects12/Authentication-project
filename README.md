@@ -174,7 +174,7 @@ Key concepts practiced:
 ## 👤 Author
 
 **Victor**
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
+- GitHub: [@VicProjects12](https://github.com/VicProjects12)
 
 ---
 
