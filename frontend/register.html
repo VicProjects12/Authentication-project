@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h1>Create Account</h1>
+      <p class="subtitle">Sign Up for free</p>
+
+      <!-- Error and success message boxes (hidden until needed) -->
+      <div class="error" id="errorMessage"></div>
+      <div class="success" id="successMessage"></div>
+
+      <!-- Sign up form -->
+      <form id="registerForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="At least 8 characters"
+          required
+          autocomplete="new-password"
+        />
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+          required
+          autocomplete="new-password"
+        />
+
+        <button type="submit" class="btn">Create Account</button>
+      </form>
+
+      <p class="login-link">
+        Already have an account? <a href="Login.html">Log in</a>
+      </p>
+    </div>
+
+    <script>
+      const form = document.getElementById("registerForm");
+      const errorMsg = document.getElementById("errorMessage");
+      const successMsg = document.getElementById("successMessage");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        // Hide any old messages
+        errorMsg.style.display = "none";
+        successMsg.style.display = "none";
+
+        // Get values
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Check passwords match before even calling the server
+        if (password !== confirmPassword) {
+          errorMsg.textContent = "Passwords do not match";
+          errorMsg.style.display = "block";
+          return;
+        }
+
+        try {
+          const response = await fetch("http://localhost:5000/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            errorMsg.textContent = data.message;
+            errorMsg.style.display = "block";
+          } else {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            window.location.href = "dashboard.html";
+          }
+        } catch (error) {
+          errorMsg.textContent = "Could not connect to server. Is it running?";
+          errorMsg.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>

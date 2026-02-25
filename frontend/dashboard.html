@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h1>My Dashboard</h1>
+
+      <!---This text will be filled in by javascript-->
+      <div class="welcome-box">
+        <p id="WelcomeText">Loading.....</p>
+      </div>
+
+      <p style="color: #555; margin-bottom: 1.5rem">
+        You are successfully logged in This Page is only visible to logged in
+        users.
+      </p>
+
+      <button class="btn-logout" onclick="logout()">Log Out</button>
+    </div>
+
+    <script>
+        // Run this as soon as the page loads
+        window.onload = function() {
+            //check if user is saved
+            const savedUser = localStorage.getItem("user");
+
+            if (!savedUser) {
+                // redirect to login page
+                window.location.href = "index.html";
+                return;
+
+            }
+
+            // parse the user data and show thier name
+            const user = JSON.parse(savedUser);
+            document.getElementById("WelcomeText").textContent = "Welcome back," + user.name + "!";
+        };
+
+        //logout function
+        function logout() {
+            localStorage.removeItem("token"); // remove the token
+            localStorage.removeItem("user"); // remove the user
+            window.location.href = "login.html"; // redirect to login page
+        }
+    </script>
+  </body>
+</html>
