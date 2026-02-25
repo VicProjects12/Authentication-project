@@ -88,9 +88,17 @@ cd backend
 npm install
 ```
 
+### 3. Set up environment variables
+Create a `.env` file inside the `backend/` folder:
+```
+MONGO_URI=mongodb://localhost:27017/myauthapp
+JWT_SECRET=your_secret_key_here
+JWT_EXPIRES_IN=7d
+PORT=5000
+```
+> ⚠️ Never commit your `.env` file. It is already in `.gitignore`.
 
-
-### 3. Start the backend server
+### 4. Start the backend server
 ```bash
 node server.js
 ```
@@ -100,7 +108,7 @@ Server started on port 5000
 Database connected
 ```
 
-### 4. Open the frontend
+### 5. Open the frontend
 Open `frontend/register.html` with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) in VS Code, or simply open the file in your browser.
 
 ---
@@ -166,7 +174,7 @@ Key concepts practiced:
 ## 👤 Author
 
 **Victor**
-- GitHub: [@VicProjects12](https://github.com/VicProjects12/)
+- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
 
 ---
 
